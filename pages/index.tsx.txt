@@ -1,0 +1,5 @@
+import AyuniHomepage from '../components/ayuni-homepage'
+
+export default function Home() {
+  return <AyuniHomepage />
+}

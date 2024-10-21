@@ -1,0 +1,209 @@
+'use client'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import { useState, useEffect, useRef } from 'react'
+import localFont from 'next/font/local'
+
+const monumentGrotesk = localFont({
+  src: './public/fonts/MonumentGrotesk-Regular.woff2',
+  variable: '--font-monument-grotesk',
+})
+
+const images = [
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ayuni1-xMFpMg5tbyznrercPu853MAoFPyo1x.png",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ayuni2-0yEg7EZ7114kCTGepIV4JBPM8i9rKE.png",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ayuni3-xqUZ17Dw67iqfAwnfdsjBzFuhJkbTl.png",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ayuni4-hxqqSsPOBGSMSNBhLVdENULmHATLGy.png",
+]
+
+const allImages = [
+  ...images,
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ayuniexperience1-3JlBah2iycl5mXMvoYc5J6Bf5cgZxw.png",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ayuniexperience2-y9yZ3J5TSryRCltHFOuc9LMwF3NQ5c.png",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ayuniteam1-fvK6cYhdHNzQq1vLZDdPeyjiOtTUE3.png",
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ayuniteam2-iyur0vBEKC2EqTEy25HFYfasXxEnzt.png"
+]
+
+export default function Component() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [showGallery, setShowGallery] = useState(false)
+  const storyRef = useRef<HTMLDivElement>(null)
+  const contactRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length)
+    }, 5000) // Change image every 5 seconds
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const scrollToRef = (ref: React.RefObject<HTMLDivElement>) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  return (
+    <div className={`min-h-screen bg-[#f5f5f0] text-[#1F5670] ${monumentGrotesk.variable} font-sans p-4 md:p-8`}>
+      <header className="mb-12 ml-4 pt-4">
+        <div className="w-[120px] h-[60px] relative">
+          <Image
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AyuniLogo-vSfHm50bslkYJUowm0WUNDN5HtalzF.png"
+            alt="Ayuni Logo"
+            layout="fill"
+            objectFit="contain"
+            quality={100}
+          />
+        </div>
+      </header>
+      <div className="flex flex-col md:flex-row">
+        <nav className="w-full md:w-1/6 pr-4 mb-12 md:mb-0">
+          <ul className="flex md:flex-col space-x-4 md:space-x-0 md:space-y-2 text-sm">
+            <li><button onClick={() => scrollToRef(storyRef)} className="hover:underline">ABOUT</button></li>
+            <li><button onClick={() => setShowGallery(true)} className="hover:underline">GALLERY</button></li>
+            <li><button onClick={() => scrollToRef(contactRef)} className="hover:underline">CONTACT</button></li>
+            <li><a href="https://www.instagram.com/ayunichef" target="_blank" rel="noopener noreferrer" className="hover:underline">INSTAGRAM</a></li>
+          </ul>
+        </nav>
+        <main className="w-full md:w-5/6">
+          <div ref={storyRef} className="mb-24">
+            <h1 className="text-[20px] font-bold mb-8 font-monument-grotesk">STORY</h1>
+            <div className="mb-8">
+              <div className="relative w-full h-[400px] md:h-[500px] overflow-hidden">
+                <Image
+                  src={images[currentImageIndex]}
+                  alt="Ayuni culinary experience"
+                  layout="fill"
+                  objectFit="cover"
+                  quality={100}
+                  className="transition-opacity duration-500"
+                />
+              </div>
+            </div>
+            <h2 className="text-xl font-semibold mb-4">AYUNI In Arabic - MY EYES</h2>
+            <div className="space-y-4 text-sm">
+              <p>
+                We believe in the beauty of shared moments, where every dish becomes part of
+                a larger narrative, and every gathering is a celebration of life's simple
+                pleasures.
+              </p>
+              <p>
+                The inspiration behind Ayuni comes from our passion for multicultural
+                Mediterranean flavors, combined with the desire to create shared, meaningful
+                experiences. Neil's journey is rooted in authenticity and a love for high-
+                quality ingredients that bring people together to celebrate life's joys.
+              </p>
+            </div>
+          </div>
+
+          {/* The Experience section */}
+          <div className="mb-24">
+            <h2 className="text-[20px] font-bold mb-8 font-monument-grotesk">THE EXPERIENCE</h2>
+            <div className="space-y-4 text-sm mb-8">
+              <p>
+                With Ayuni, the concept revolves around a unique, communal dining experience
+                without traditional seating. This arrangement fosters genuine connections as
+                guests naturally interact and engage with each other. Inspired by the vibrant
+                culture of Israel, our tables are transformed into lively canvases filled
+                with the colors and flavors of Mediterranean cuisine.
+              </p>
+              <p>
+                Music is the heartbeat of the Ayuni experience—from soulful Middle Eastern
+                jazz to upbeat rhythms that rise with the feast, creating an unforgettable
+                atmosphere.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ayuniexperience1-3JlBah2iycl5mXMvoYc5J6Bf5cgZxw.png"
+                alt="Ayuni food preparation and table setting"
+                width={600}
+                height={400}
+                quality={100}
+                className="w-full h-auto object-cover"
+              />
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ayuniexperience2-y9yZ3J5TSryRCltHFOuc9LMwF3NQ5c.png"
+                alt="Ayuni music and dining experience"
+                width={600}
+                height={400}
+                quality={100}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          </div>
+
+          {/* Our Team section */}
+          <div className="mb-24">
+            <h2 className="text-[20px] font-bold mb-8 font-monument-grotesk">OUR TEAM</h2>
+            <div className="space-y-4 text-sm mb-8">
+              <p>
+                Our team is an essential part of the Ayuni experience—each member is chosen for their passion, hospitality, and culinary skills, ensuring a welcoming atmosphere.
+              </p>
+              <p>
+                Our staff not only manages setup and cleanup but also actively interacts with guests, fostering warmth and hospitality that makes everyone feel like part of the family.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ayuniteam1-fvK6cYhdHNzQq1vLZDdPeyjiOtTUE3.png"
+                alt="Ayuni team in the kitchen"
+                width={600}
+                height={400}
+                quality={100}
+                className="w-full h-auto object-cover"
+              />
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ayuniteam2-iyur0vBEKC2EqTEy25HFYfasXxEnzt.png"
+                alt="Ayuni team members"
+                width={600}
+                height={400}
+                quality={100}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          </div>
+
+          {/* Contact section */}
+          <div id="contact" ref={contactRef} className="mb-24">
+            <h2 className="text-[20px] font-bold mb-8 font-monument-grotesk">CONTACT</h2>
+            <div className="space-y-2 text-sm">
+              <p>hello@ayunichef.com</p>
+              <p>@ayunichef</p>
+              <p>(903)920-9113</p>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      {/* Gallery Modal */}
+      {showGallery && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-8 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <h2 className="text-2xl font-bold mb-6">Gallery</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {allImages.map((src, index) => (
+                <div key={index} className="relative w-full h-64">
+                  <Image
+                    src={src}
+                    alt={`Gallery image ${index + 1}`}
+                    layout="fill"
+                    objectFit="cover"
+                    quality={100}
+                    className="rounded-lg"
+                  />
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => setShowGallery(false)}
+              className="mt-6 px-6 py-2 bg-gray-200 rounded hover:bg-gray-300 transition-colors"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
